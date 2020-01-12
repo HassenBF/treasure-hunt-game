@@ -1,0 +1,44 @@
+{
+  "mapSize": {
+    "nbHorizontalTiles": 3,
+    "nbVerticalTiles": 4
+  },
+  "mountains ": [
+    {
+      "positionX": 1,
+      "positionY": 0
+    },
+    {
+      "positionX": 2,
+      "positionY": 1
+    }
+  ],
+  "treasuresSpots": [
+    {
+      "positionX": 0,
+      "positionY": 3,
+      "nbOfTreasures": 2
+    },
+    {
+      "positionX": 1,
+      "positionY": 3,
+      "nbOfTreasures": 3
+    }
+  ],
+  "players": [
+    {
+      "name": "Lara",
+      "initialPositionX": 1,
+      "initialPositionY": 1,
+      "direction": "s",
+      "movements": "AADADA"
+    },
+    {
+      "name": "Eric",
+      "initialPositionX": 2,
+      "initialPositionY": 1,
+      "direction": "s",
+      "movements": "AADADA"
+    }
+  ]
+}
