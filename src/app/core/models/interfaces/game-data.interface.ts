@@ -1,4 +1,10 @@
-export type direction = 'S' | 'N'
+export type direction = 'S' | 'N' | 'E' | 'W'
+export type singleMove = 'A' |'G'| 'D'
+
+export interface tileCoordinates {
+  x:number;
+  y:number;
+}
 
 export interface mapSize  {
   nbHorizontalTiles: number,
@@ -18,10 +24,12 @@ export interface treasures {
 
 export interface player {
   name: string,
-  initialPositionX: number,
-  initialPositionY: number,
+  positionX: number,
+  positionY: number,
   direction: direction,
-  movements: string,
+  movesSequence: string | singleMove,
+  priority?: number;
+  nbOfFoundTreasures?: number;
 }
 
 

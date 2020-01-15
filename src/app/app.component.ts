@@ -37,17 +37,17 @@ export class AppComponent {
     "players": [
       {
         "name": "Lara",
-        "initialPositionX": 1,
-        "initialPositionY": 1,
+        "positionX": 1,
+        "positionY": 1,
         "direction": "S",
-        "movements": "AADADA"
+        "movesSequence": "AADADA"
       },
       {
         "name": "Eric",
-        "initialPositionX": 2,
-        "initialPositionY": 1,
+        "positionX": 2,
+        "positionY": 1,
         "direction": "S",
-        "movements": "AADADA"
+        "movesSequence": "AADADA"
       }
     ]
   }

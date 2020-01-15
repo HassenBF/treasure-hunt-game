@@ -3,7 +3,7 @@
     "nbHorizontalTiles": 3,
     "nbVerticalTiles": 4
   },
-  "mountains ": [
+  "mountains": [
     {
       "positionX": 1,
       "positionY": 0
@@ -28,17 +28,17 @@
   "players": [
     {
       "name": "Lara",
-      "initialPositionX": 1,
-      "initialPositionY": 1,
-      "direction": "s",
-      "movements": "AADADA"
+      "positionX": 2,
+      "positionY": 0,
+      "direction": "S",
+      "movesSequence": "AADADA"
     },
     {
       "name": "Eric",
-      "initialPositionX": 2,
-      "initialPositionY": 1,
-      "direction": "s",
-      "movements": "AADADA"
+      "positionX": 2,
+      "positionY": 1,
+      "direction": "S",
+      "movesSequence": "AADADA"
     }
   ]
 }

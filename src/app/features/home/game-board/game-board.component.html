@@ -1,0 +1,6 @@
+
+<table>
+<tr class="map-column" *ngFor="let row of gameMap">
+  <app-map-tile [field]="field" *ngFor="let field of row"></app-map-tile>
+</tr>
+</table>

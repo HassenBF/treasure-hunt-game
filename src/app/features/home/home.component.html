@@ -1,2 +1,5 @@
-<app-game-dashboard></app-game-dashboard>
-<p> Please open the console to see the magic</p>
+<h1>Treasure hunt </h1>
+<button name="start" (click)="runGame()">start the chase </button>
+<app-game-dashboard [gameData]="gameData"></app-game-dashboard>
+<app-game-board [gameMap] = gameMap></app-game-board>
+

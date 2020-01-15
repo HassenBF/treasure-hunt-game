@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home.component';
 import {GameDashboardComponent} from "./game-dashboard/game-dashboard.component";
+import { GameBoardComponent } from './game-board/game-board.component';
+import { MapTileComponent } from './game-board/map-tile/map-tile.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,8 @@ const routes: Routes = [
   declarations: [
     HomeComponent,
     GameDashboardComponent,
+    GameBoardComponent,
+    MapTileComponent,
   ],
   providers: [],
   exports: [
