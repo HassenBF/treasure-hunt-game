@@ -78,7 +78,7 @@ export class PlayerUtils {
         player = this.turnEast(player, playerMove);
         break;
     }
-    return {...player};
+    return player;
   }
 
   static isNextTileMountain(tileCoordinates: tileCoordinates, gameMap: gameMap): boolean {
@@ -86,12 +86,19 @@ export class PlayerUtils {
     return gameMap.tiles[tileCoordinates.y][tileCoordinates.x] === mapElementsEnum.mountain;
   }
 
-  isNextTileTreasure(tileCoordinates: tileCoordinates, gameMap: gameMap, gameData: gameData): boolean {
-    if ((gameMap.tiles[tileCoordinates.y][tileCoordinates.x]).startsWith(mapElementsEnum.treasure)) {
-      return true
-    }
-    return false;
+  static lookForTreasure(player: player, gameData: gameData): gameSession {
+    gameData.treasuresSpots.forEach((treasure,index)=>{
+        if (player.positionX === treasure.positionX && player.positionY === treasure.positionY){
+          player.isPlayerOnTreasure = true;
+          player.lastTreasureFound = treasure;
+          player.nbOfFoundTreasures +=1;
+          gameData.treasuresSpots[index].nbOfTreasures-=1;
+          return {player, gameData}
+        }
+    });
+    return {player, gameData};
   }
+
 
   static isEndOfMap(tileCoordinates: tileCoordinates, gameData: gameData): boolean {
     return tileCoordinates.x >= gameData.mapSize.nbHorizontalTiles
@@ -101,55 +108,49 @@ export class PlayerUtils {
   }
 
 
-  static isNextTileOccupiedByPlayer(tileCoordinates: tileCoordinates, gameMap: gameMap, gameData: gameData): boolean {
-      if ((gameMap.tiles[tileCoordinates.y][tileCoordinates.x]).startsWith(mapElementsEnum.player)) {
-        return true
-      }
-    return false;
+  static isNextTileOccupiedByPlayer(tileCoordinates: tileCoordinates, gameMap: gameMap): boolean {
+      return (gameMap.tiles[tileCoordinates.y][tileCoordinates.x]).startsWith(mapElementsEnum.player);
   }
 
   static isNextTileValid(player: player, gameMap: gameMap, gameData: gameData): boolean {
     const tileCoordinates = this.getFuturePlayerPosition(player);
     if (this.isEndOfMap(tileCoordinates, gameData)) {
-      //console.log('endOfMap', 'true');
       return false
     } else {
-      // const debugOccupied = this.isNextTileOccupiedByPlayer(tileCoordinates, gameMap, gameData);
-      // const debugMountain = this.isNextTileMountain(tileCoordinates, gameMap) ;
-      // console.log('IsNoTmountainOrOccupied', this.isNextTileOccupiedByPlayer(tileCoordinates, gameMap, gameData));
       return !this.isNextTileMountain(tileCoordinates, gameMap) && !this.isNextTileOccupiedByPlayer(tileCoordinates, gameMap, gameData);
     }
   }
 
   static moveNorth(player: player, gameMap: gameMap): gameSession {
-    gameMap.tiles[player.positionY][player.positionX] = mapElementsEnum.plain;
+    player.isPlayerOnTreasure = false;
     gameMap.tiles[player.positionY - 1][player.positionX] = `${mapElementsEnum.player}(${player.name})` as mapElement;
     player.positionY -= 1;
     return {player, gameMap};
   }
 
   static moveSouth(player: player, gameMap: gameMap): gameSession {
-    gameMap.tiles[player.positionY][player.positionX] = mapElementsEnum.plain;
+    player.isPlayerOnTreasure = false;
     gameMap.tiles[player.positionY + 1][player.positionX] = `${mapElementsEnum.player}(${player.name})` as mapElement;
     player.positionY += 1;
     return {player, gameMap};
   }
 
   static moveWest(player: player, gameMap: gameMap): gameSession {
-    gameMap.tiles[player.positionY][player.positionX] = mapElementsEnum.plain;
+    player.isPlayerOnTreasure = false;
     gameMap.tiles[player.positionY][player.positionX - 1] = `${mapElementsEnum.player}(${player.name})` as mapElement;
     player.positionX -= 1;
     return {player, gameMap};
   }
 
   static moveEast(player: player, gameMap: gameMap): gameSession {
-    gameMap.tiles[player.positionY][player.positionX] = mapElementsEnum.plain;
+    player.isPlayerOnTreasure = false;
     gameMap.tiles[player.positionY][player.positionX + 1] = `${mapElementsEnum.player}(${player.name})` as mapElement;
     player.positionX += 1;
     return {player, gameMap};
   }
 
   static movePlayer(player: player, gameMap: gameMap): gameSession {
+    gameMap = this.clearOldPlayerTile(player,gameMap);
     switch (player.direction) {
       case "N": {
         return this.moveNorth(player, gameMap);
@@ -169,7 +170,7 @@ export class PlayerUtils {
   static removeUsedMove(player: player): player {
     if (player.movesSequence.length > 0) {
       player.movesSequence = player.movesSequence.substr(1);
-      return {...player};
+      return player;
     }
   }
 
@@ -181,10 +182,6 @@ export class PlayerUtils {
     if (player.movesSequence.length > 0) {
       return player.movesSequence[0] as singleMove;
     }
-  }
-
-  static getTreasure(player: player, gameData: gameData, gameMap: gameMap): gameSession {
-    return {gameData, gameMap}
   }
 
   static getTotalNumberOfMoves(gameData: gameData): number {
@@ -204,6 +201,16 @@ export class PlayerUtils {
   }
 
 
+  static clearOldPlayerTile(player:player, gameMap:gameMap):gameMap {
+    if (player.isPlayerOnTreasure){
+      gameMap.tiles[player.positionY][player.positionX] = `${mapElementsEnum.treasure}(${player.lastTreasureFound.nbOfTreasures})` as mapElement;
+    } else {
+      gameMap.tiles[player.positionY][player.positionX] = mapElementsEnum.plain;
+    }
+    return  gameMap;
+  }
+
+
   static playTurn(player: player, gameData: gameData, gameMap: gameMap): gameSession {
     let gameSession: gameSession = {};
     // get the next player move from the player moveSequence
@@ -212,6 +219,8 @@ export class PlayerUtils {
     if (move === playerMovesEnum.advance && this.isNextTileValid(player, gameMap, gameData)) {
       // moves the player and updates the concerned data (player and gameMap)
       gameSession = this.movePlayer(player, gameMap);
+      // checks and gather a treasure if therese any
+      gameSession = this.lookForTreasure(player,gameData);
       // removes the executed move form the player's moveSequence
       gameSession.player = this.removeUsedMove(player);
       // updates gameData with the updated player

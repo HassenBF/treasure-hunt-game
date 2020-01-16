@@ -28,9 +28,11 @@ export interface player {
   positionX: number,
   positionY: number,
   direction: direction,
-  movesSequence: string | singleMove,
+  movesSequence: string ,
   priority?: number;
   nbOfFoundTreasures?: number;
+  isPlayerOnTreasure?:boolean
+  lastTreasureFound?: treasures;
 }
 
 

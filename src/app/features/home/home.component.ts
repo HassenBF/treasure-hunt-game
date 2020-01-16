@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MapDataService} from "../../core/services/map-data/map-data.service";
 import {gameData} from "../../core/models/interfaces/game.data";
 import {MapUtils} from "../lib/map-utils/map-utils";
-import {mapElement, gameMap} from "../../core/models/interfaces/game-map.interface";
+import {gameMap} from "../../core/models/interfaces/game-map.interface";
 import {map} from "rxjs/operators";
 import {PlayerUtils} from "../lib/player-utils/player-utils";
 
@@ -24,16 +24,17 @@ export class HomeComponent implements OnInit {
     this.fetchMapInitialGameData();
   }
 
-  setPlayerPriority(gameData: gameData): gameData {
+  initPlayersData(gameData: gameData): gameData {
     gameData.players.forEach((player, index) => {
       player.priority = index;
+      player.nbOfFoundTreasures = 0;
     });
     return gameData;
   }
 
   fetchMapInitialGameData(): void {
     this.mapDataService.getGameInitialisationData().pipe(
-      map(this.setPlayerPriority),
+      map(this.initPlayersData),
     ).subscribe((resp) => {
       this.gameData = resp;
       console.log('resp',this.gameData);
@@ -43,7 +44,7 @@ export class HomeComponent implements OnInit {
 
   runGame(): void {
     this.mapDataService.getGameInitialisationData().pipe(
-      map(this.setPlayerPriority),
+      map(this.initPlayersData),
     ).subscribe((resp) => {
       this.gameData = resp;
       console.log('resp',this.gameData);
