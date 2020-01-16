@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {gameDataInterface} from "./core/models/interfaces/game-data.interface";
+import {gameData} from "./core/models/interfaces/game.data";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import {gameDataInterface} from "./core/models/interfaces/game-data.interface";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  data : gameDataInterface = {
+  data : gameData = {
     "mapSize": {
       "nbHorizontalTiles": 3,
       "nbVerticalTiles": 4

@@ -11,6 +11,7 @@ export interface mapSize  {
   nbVerticalTiles: number
 }
 
+
 export interface mountain {
   positionX: number,
   positionY: number,
@@ -33,7 +34,7 @@ export interface player {
 }
 
 
-export interface gameDataInterface {
+export interface gameData {
   mapSize :mapSize
   mountains : Array<mountain>
   treasuresSpots: Array<treasures>

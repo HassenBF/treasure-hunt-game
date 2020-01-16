@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {gameDataInterface} from "../../../core/models/interfaces/game-data.interface";
+import {gameData} from "../../../core/models/interfaces/game.data";
 
 @Component({
   selector: 'app-game-dashboard',
@@ -8,7 +8,7 @@ import {gameDataInterface} from "../../../core/models/interfaces/game-data.inter
 })
 export class GameDashboardComponent implements OnInit {
 
-  @Input() gameData : gameDataInterface;
+  @Input() gameData : gameData;
 
   constructor() { }
 

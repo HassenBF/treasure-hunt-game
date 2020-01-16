@@ -10,7 +10,7 @@
     },
     {
       "positionX": 2,
-      "positionY": 1
+      "positionY": 2
     }
   ],
   "treasuresSpots": [
@@ -21,24 +21,17 @@
     },
     {
       "positionX": 1,
-      "positionY": 3,
+      "positionY": 1,
       "nbOfTreasures": 3
     }
   ],
   "players": [
     {
-      "name": "Lara",
-      "positionX": 2,
-      "positionY": 0,
-      "direction": "S",
-      "movesSequence": "AADADA"
-    },
-    {
-      "name": "Eric",
-      "positionX": 2,
-      "positionY": 1,
-      "direction": "S",
-      "movesSequence": "AADADA"
+    "name": "Lara",
+    "positionX": 2,
+    "positionY": 1,
+    "direction": "W",
+    "movesSequence": "AADADA"
     }
   ]
 }
