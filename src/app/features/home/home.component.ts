@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {MapDataService} from "../../core/services/map-data/map-data.service";
-import {gameData} from "../../core/models/interfaces/game.data";
+import {gameData} from "../../shared/models/interfaces/game.data";
 import {MapUtils} from "../lib/map-utils/map-utils";
-import {gameMap} from "../../core/models/interfaces/game-map.interface";
+import {gameMap} from "../../shared/models/interfaces/game-map.interface";
 import {map} from "rxjs/operators";
 import {PlayerUtils} from "../lib/player-utils/player-utils";
 

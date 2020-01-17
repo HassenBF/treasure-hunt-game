@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {gameData} from "../../models/interfaces/game.data";
+import {gameData} from "../../../shared/models/interfaces/game.data";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 @Injectable({

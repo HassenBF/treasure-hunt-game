@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {gameData} from "../../../core/models/interfaces/game.data";
+import {gameData} from "../../../shared/models/interfaces/game.data";
 
 @Component({
   selector: 'app-game-dashboard',

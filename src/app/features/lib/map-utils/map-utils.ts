@@ -1,6 +1,6 @@
-import {gameData, mountain, player, treasures} from "../../../core/models/interfaces/game.data";
-import {mapElementsEnum} from "../../../core/models/enums/map-elements.enum";
-import {gameMap, mapElement} from "../../../core/models/interfaces/game-map.interface";
+import {gameData, mountain, player, treasures} from "../../../shared/models/interfaces/game.data";
+import {mapElementsEnum} from "../../../shared/models/enums/map-elements.enum";
+import {gameMap, mapElement} from "../../../shared/models/interfaces/game-map.interface";
 import {pipe} from "rxjs";
 
 export class MapUtils {

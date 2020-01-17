@@ -1,1 +1,65 @@
-<p>game-dashboard works!</p>
+<h1>Game results</h1>
+
+<div class="divTable fs-m">
+  <div class="divTableBody">
+    <div class="row">
+      <div class="cell fw-600"> Map Size</div>
+      <div class="cell"> {{gameData.mapSize.nbVerticalTiles}} x {{gameData.mapSize.nbHorizontalTiles}}</div>
+    </div>
+    <div class="row" *ngFor="let mountain of gameData.mountains; let i = index">
+      <div class="cell fw-600">
+        Mountain {{i + 1}}
+      </div>
+      <div class="cell">
+        Position  x: {{mountain.positionX }} - y : {{mountain.positionY}}
+      </div>
+    </div>
+
+    <div class="row" *ngFor="let treasures of gameData.treasuresSpots; let i = index">
+      <div class="cell fw-600">
+        Treasure {{i + 1}}
+      </div>
+      <div class="cell">
+        <div class="row">
+          <div class="cell-borderless">
+            Position  x :{{treasures.positionX}} - y : {{treasures.positionY}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="cell-borderless">
+            Number of treasures left : {{treasures.nbOfTreasures}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngFor="let player of gameData.players; let i = index">
+      <div class="cell fw-600">
+        Player {{i + 1}}
+      </div>
+      <div class="cell">
+        <div class="row">
+          <div class="cell-borderless">
+            Name : {{player.name}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="cell-borderless">
+            Position  x : {{player.positionX}} - y : {{player.positionY}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="cell-borderless">
+            Orientation : {{player.direction}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="cell-borderless">
+            Number of found treasures: {{player.nbOfFoundTreasures}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

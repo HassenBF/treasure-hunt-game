@@ -1,12 +1,15 @@
-import {mapElement, gameMap} from "../../../core/models/interfaces/game-map.interface";
-import {gameData, player, singleMove, tileCoordinates} from "../../../core/models/interfaces/game.data";
-import {playerMovesEnum} from "../../../core/models/enums/player-moves.enum";
-import {mapElementsEnum} from "../../../core/models/enums/map-elements.enum";
-import {gameSession} from "../../../core/models/interfaces/game.session";
-import {directionsEnum} from "../../../core/models/enums/directionsEnum";
+import {mapElement, gameMap} from "../../../shared/models/interfaces/game-map.interface";
+import {gameData, player, singleMove, tileCoordinates} from "../../../shared/models/interfaces/game.data";
+import {playerMovesEnum} from "../../../shared/models/enums/player-moves.enum";
+import {mapElementsEnum} from "../../../shared/models/enums/map-elements.enum";
+import {gameSession} from "../../../shared/models/interfaces/game.session";
+import {directionsEnum} from "../../../shared/models/enums/directionsEnum";
 
 export class PlayerUtils {
 
+  /*
+  * Gets next map tile player is supposed to move to
+  */
   static getFuturePlayerPosition(player: player): tileCoordinates {
     if (player.direction === directionsEnum.NORTH) {
       return {x: player.positionX, y: player.positionY - 1};
@@ -62,7 +65,9 @@ export class PlayerUtils {
     return player;
   }
 
-
+  /*
+  * Executes direction related moves
+  */
   static setPlayerDirection(player: player, playerMove: string): player {
     switch (player.direction) {
       case "N":
@@ -86,15 +91,18 @@ export class PlayerUtils {
     return gameMap.tiles[tileCoordinates.y][tileCoordinates.x] === mapElementsEnum.mountain;
   }
 
+  /*
+  * Checks if user is over a treasure
+  */
   static lookForTreasure(player: player, gameData: gameData): gameSession {
-    gameData.treasuresSpots.forEach((treasure,index)=>{
-        if (player.positionX === treasure.positionX && player.positionY === treasure.positionY){
-          player.isPlayerOnTreasure = true;
-          player.lastTreasureFound = treasure;
-          player.nbOfFoundTreasures +=1;
-          gameData.treasuresSpots[index].nbOfTreasures-=1;
-          return {player, gameData}
-        }
+    gameData.treasuresSpots.forEach((treasure, index) => {
+      if (player.positionX === treasure.positionX && player.positionY === treasure.positionY) {
+        player.isPlayerOnTreasure = true;
+        player.lastTreasureFound = treasure;
+        player.nbOfFoundTreasures += 1;
+        gameData.treasuresSpots[index].nbOfTreasures -= 1;
+        return {player, gameData}
+      }
     });
     return {player, gameData};
   }
@@ -107,17 +115,19 @@ export class PlayerUtils {
       || tileCoordinates.x < 0
   }
 
-
-  static isNextTileOccupiedByPlayer(tileCoordinates: tileCoordinates, gameMap: gameMap): boolean {
-      return (gameMap.tiles[tileCoordinates.y][tileCoordinates.x]).startsWith(mapElementsEnum.player);
+  static isNextTileOccupiedByAnotherPlayer(tileCoordinates: tileCoordinates, gameMap: gameMap): boolean {
+    return (gameMap.tiles[tileCoordinates.y][tileCoordinates.x]).startsWith(mapElementsEnum.player);
   }
 
+  /*
+  * Checks if the next tile the user is supposed to move is available and not blocked by a mountain
+  */
   static isNextTileValid(player: player, gameMap: gameMap, gameData: gameData): boolean {
     const tileCoordinates = this.getFuturePlayerPosition(player);
     if (this.isEndOfMap(tileCoordinates, gameData)) {
       return false
     } else {
-      return !this.isNextTileMountain(tileCoordinates, gameMap) && !this.isNextTileOccupiedByPlayer(tileCoordinates, gameMap, gameData);
+      return !this.isNextTileMountain(tileCoordinates, gameMap) && !this.isNextTileOccupiedByAnotherPlayer(tileCoordinates, gameMap);
     }
   }
 
@@ -149,8 +159,11 @@ export class PlayerUtils {
     return {player, gameMap};
   }
 
+  /*
+  * Advances player to another tile
+  */
   static movePlayer(player: player, gameMap: gameMap): gameSession {
-    gameMap = this.clearOldPlayerTile(player,gameMap);
+    gameMap = this.clearOldPlayerTile(player, gameMap);
     switch (player.direction) {
       case "N": {
         return this.moveNorth(player, gameMap);
@@ -167,6 +180,9 @@ export class PlayerUtils {
     }
   }
 
+  /*
+ * Deletes executed moves from player's move sequence
+ */
   static removeUsedMove(player: player): player {
     if (player.movesSequence.length > 0) {
       player.movesSequence = player.movesSequence.substr(1);
@@ -184,6 +200,9 @@ export class PlayerUtils {
     }
   }
 
+  /*
+  * Gets total number of moves of all players in a game
+  */
   static getTotalNumberOfMoves(gameData: gameData): number {
     let total = 0;
     for (let player of gameData.players) {
@@ -201,13 +220,13 @@ export class PlayerUtils {
   }
 
 
-  static clearOldPlayerTile(player:player, gameMap:gameMap):gameMap {
-    if (player.isPlayerOnTreasure){
+  static clearOldPlayerTile(player: player, gameMap: gameMap): gameMap {
+    if (player.isPlayerOnTreasure) {
       gameMap.tiles[player.positionY][player.positionX] = `${mapElementsEnum.treasure}(${player.lastTreasureFound.nbOfTreasures})` as mapElement;
     } else {
       gameMap.tiles[player.positionY][player.positionX] = mapElementsEnum.plain;
     }
-    return  gameMap;
+    return gameMap;
   }
 
 
@@ -217,10 +236,10 @@ export class PlayerUtils {
     const move = this.getNextPlayerMove(player);
     // checks if player is going to advance and that destination tile is valid
     if (move === playerMovesEnum.advance && this.isNextTileValid(player, gameMap, gameData)) {
-      // moves the player and updates the concerned data (player and gameMap)
+      // moves the player
       gameSession = this.movePlayer(player, gameMap);
-      // checks and gather a treasure if therese any
-      gameSession = this.lookForTreasure(player,gameData);
+      // checks and gather a treasure if there's any
+      gameSession = this.lookForTreasure(player, gameData);
       // removes the executed move form the player's moveSequence
       gameSession.player = this.removeUsedMove(player);
       // updates gameData with the updated player

@@ -1,0 +1,32 @@
+.divTable{
+  display: table;
+  width: 100%;
+  color: darkslategrey;
+}
+.row {
+  display: table-row;
+}
+
+.cell {
+  border: 1px solid #999999;
+  display: table-cell;
+  padding: 3px 10px;
+}
+
+.cell-borderless {
+  display: table-cell;
+  padding: 5px 0 5px 0;
+}
+
+.divTableBody {
+  display: table-row-group;
+}
+
+.fw-600 {
+  font-weight: 600;
+}
+
+.fs-m{
+  font-size: 14px;
+}
+
