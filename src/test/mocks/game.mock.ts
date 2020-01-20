@@ -1,5 +1,5 @@
-import {GameData, Player} from "../../app/shared/models/interfaces/gameData";
-import {GameMap} from "../../app/shared/models/interfaces/game-map.interface";
+import {GameData, Player} from '../../app/shared/models/interfaces/gameData';
+import {GameMap} from '../../app/shared/models/interfaces/game-map.interface';
 
 export const MOCK_GAME_DATA: GameData = {
   mapSize: {
@@ -30,65 +30,65 @@ export const MOCK_GAME_DATA: GameData = {
   ],
   players: [
     {
-      name: "Lara",
+      name: 'Lara',
       positionX: 1,
       positionY: 3,
-      direction: "S",
-      movesSequence: "AADADA",
+      direction: 'S',
+      movesSequence: 'AADADA',
     },
     {
-      name: "Eric",
+      name: 'Eric',
       positionX: 2,
       positionY: 1,
-      direction: "S",
-      movesSequence: "AADADA"
+      direction: 'S',
+      movesSequence: 'AADADA'
     },
   ]
 };
 
 export const MOCK_PLAYER: Player = {
-  name: "Lara",
+  name: 'Lara',
   positionX: 1,
   positionY: 3,
-  direction: "S",
-  movesSequence: "ADDAADAGAGA",
+  direction: 'S',
+  movesSequence: 'ADDAADAGAGA',
   isPlayerOnTreasure: false,
 };
 
 export const MOCK_PLAIN_MAP: GameMap = {
   tiles:
     [
-      [".", ".", "."],
-      [".", ".", "."],
-      [".", ".", "."],
-      [".", ".", "."]
+      ['.', '.', '.'],
+      ['.', '.', '.'],
+      ['.', '.', '.'],
+      ['.', '.', '.']
     ]
 };
 export const MOCK_MAP_WITH_MOUNTAINS: GameMap = {
   tiles:
     [
-      [".", "M", "."],
-      [".", ".", "."],
-      [".", ".", "M"],
-      [".", ".", "."]
+      ['.', 'M', '.'],
+      ['.', '.', '.'],
+      ['.', '.', 'M'],
+      ['.', '.', '.']
     ]
 };
 export const MOCK_MAP_WITH_TREASURES: GameMap = {
   tiles:
     [
-      [".", "M", "."],
-      [".", "T(3)", "."],
-      [".", ".", "M"],
-      ["T(2)", ".", "."]
+      ['.', 'M', '.'],
+      ['.', 'T(3)', '.'],
+      ['.', '.', 'M'],
+      ['T(2)', '.', '.']
     ]
 };
 
 export const MOCK_MAP_FULL: GameMap = {
   tiles:
     [
-      [".", "M", "."],
-      [".", "T(3)", "A(Eric)"],
-      [".", ".", "M"],
-      ["T(2)", "A(Lara)", "."]
+      ['.', 'M', '.'],
+      ['.', 'T(3)', 'A(Eric)'],
+      ['.', '.', 'M'],
+      ['T(2)', 'A(Lara)', '.']
     ]
 };

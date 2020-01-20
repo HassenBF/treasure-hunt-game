@@ -1,17 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {StartScreenComponent} from './start-screen.component';
-import {Component, Input} from "@angular/core";
-import {GameData} from "../../../../shared/models/interfaces/gameData";
-import {GameMap} from "../../../../shared/models/interfaces/game-map.interface";
-import {HttpClientModule} from "@angular/common/http";
+import {Component, Input} from '@angular/core';
+import {GameData} from '../../../../shared/models/interfaces/gameData';
+import {GameMap} from '../../../../shared/models/interfaces/game-map.interface';
+import {HttpClientModule} from '@angular/common/http';
+import {GameDataService} from '../../../../core/services/map-data/game-data.service';
+import {of} from 'rxjs';
+import {MOCK_GAME_DATA} from '../../../../../test/mocks/game.mock';
 
 @Component({
   selector: 'app-game-results',
   template: '<span>Fake app-game-results</span>',
 })
 export class FakeGameResultsComponent {
-  @Input() gameData:GameData;
+  @Input() gameData: GameData;
 }
 
 @Component({
@@ -25,6 +28,8 @@ export class FakeGameBoardComponent {
 describe('StartScreenComponent', () => {
   let component: StartScreenComponent;
   let fixture: ComponentFixture<StartScreenComponent>;
+  const customerDemandServiceSpy = jasmine.createSpyObj('GameDataService', [ 'getGameInitialisationData' ]);
+  customerDemandServiceSpy.getGameInitialisationData.and.returnValue(of(MOCK_GAME_DATA));
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,7 +40,10 @@ describe('StartScreenComponent', () => {
       ],
       imports: [
         HttpClientModule,
-      ]
+      ],
+      providers: [
+        {provide: GameDataService, useValue: customerDemandServiceSpy},
+      ],
 
     })
     .compileComponents();

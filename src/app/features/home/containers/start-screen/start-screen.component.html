@@ -1,5 +1,6 @@
 <h1>Treasure hunt </h1>
-<button name="start" (click)="runGame()">start the chase</button>
+<button name="start" (click)="runGame()">start the hunt</button>
+<button name="start" (click)="restGame()">Reset game </button>
 <ng-container *ngIf="gameData && gameMap">
   <app-game-board [gameMap]=gameMap></app-game-board>
   <app-game-results [gameData]="gameData"></app-game-results>

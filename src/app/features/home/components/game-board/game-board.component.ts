@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GameMap} from "../../../../shared/models/interfaces/game-map.interface";
+import {GameMap} from '../../../../shared/models/interfaces/game-map.interface';
 
 @Component({
   selector: 'app-game-board',

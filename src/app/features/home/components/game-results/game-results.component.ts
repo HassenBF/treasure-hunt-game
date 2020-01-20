@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GameData} from "../../../../shared/models/interfaces/gameData";
+import {GameData} from '../../../../shared/models/interfaces/gameData';
 
 @Component({
   selector: 'app-game-results',
@@ -8,7 +8,7 @@ import {GameData} from "../../../../shared/models/interfaces/gameData";
 })
 export class GameResultsComponent implements OnInit {
 
-  @Input() gameData : GameData;
+  @Input() gameData: GameData;
 
   constructor() { }
 

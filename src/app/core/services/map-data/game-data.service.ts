@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {GameData} from "../../../shared/models/interfaces/gameData";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {GameData} from '../../../shared/models/interfaces/gameData';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MapDataService {
+export class GameDataService {
 
   constructor( private http: HttpClient) { }
 

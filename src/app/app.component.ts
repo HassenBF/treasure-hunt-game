@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {GameData} from "./shared/models/interfaces/gameData";
+import {GameData} from './shared/models/interfaces/gameData';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +7,10 @@ import {GameData} from "./shared/models/interfaces/gameData";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  data : GameData = {
-    "mapSize": {
-      "nbHorizontalTiles": 3,
-      "nbVerticalTiles": 4
+  data: GameData = {
+    mapSize: {
+      nbHorizontalTiles: 3,
+      nbVerticalTiles: 4
     },
     mountains : [
       {
@@ -18,8 +18,8 @@ export class AppComponent {
         positionY: 0
       },
       {
-        "positionX": 2,
-        "positionY": 1
+        positionX: 2,
+        positionY: 1
       }
     ],
     treasuresSpots: [
@@ -29,28 +29,28 @@ export class AppComponent {
         nbOfTreasures: 2
       },
       {
-        "positionX": 1,
-        "positionY": 3,
-        "nbOfTreasures": 3
+        positionX: 1,
+        positionY: 3,
+        nbOfTreasures: 3
       }
     ],
-    "players": [
+    players: [
       {
-        "name": "Lara",
-        "positionX": 1,
-        "positionY": 1,
-        "direction": "S",
-        "movesSequence": "AADADA"
+        name: 'Lara',
+        positionX: 1,
+        positionY: 1,
+        direction: 'S',
+        movesSequence: 'AADADA'
       },
       {
-        "name": "Eric",
-        "positionX": 2,
-        "positionY": 1,
-        "direction": "S",
-        "movesSequence": "AADADA"
+        name: 'Eric',
+        positionX: 2,
+        positionY: 1,
+        direction: 'S',
+        movesSequence: 'AADADA'
       }
     ]
-  }
+  };
 
 
 }

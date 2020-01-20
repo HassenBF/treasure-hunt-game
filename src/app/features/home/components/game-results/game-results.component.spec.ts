@@ -1,8 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {GameResultsComponent} from './game-results.component';
+import {MOCK_GAME_DATA} from '../../../../../test/mocks/game.mock';
 
-describe('GameDashboardComponent', () => {
+describe('GameResultsComponent', () => {
   let component: GameResultsComponent;
   let fixture: ComponentFixture<GameResultsComponent>;
 
@@ -16,6 +17,7 @@ describe('GameDashboardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GameResultsComponent);
     component = fixture.componentInstance;
+    component.gameData = {...MOCK_GAME_DATA};
     fixture.detectChanges();
   });
 

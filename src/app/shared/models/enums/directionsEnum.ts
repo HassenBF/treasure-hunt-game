@@ -1,5 +1,5 @@
 export enum directionsEnum {
-  'NORTH'='N',
+  'NORTH'= 'N',
   'SOUTH' = 'S',
   'WEST' = 'W',
   'EAST' = 'E'

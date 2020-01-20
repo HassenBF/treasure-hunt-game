@@ -1,9 +1,9 @@
-import {GameMap} from "../../../shared/models/interfaces/game-map.interface";
-import {GameData, Player, singleMove, TileCoordinates} from "../../../shared/models/interfaces/gameData";
-import {playerMovesEnum} from "../../../shared/models/enums/player-moves.enum";
-import {mapElementsEnum} from "../../../shared/models/enums/map-elements.enum";
-import {GameSession} from "../../../shared/models/interfaces/gameSession";
-import {directionsEnum} from "../../../shared/models/enums/directionsEnum";
+import {GameMap} from '../../../shared/models/interfaces/game-map.interface';
+import {GameData, Player, singleMove, TileCoordinates} from '../../../shared/models/interfaces/gameData';
+import {playerMovesEnum} from '../../../shared/models/enums/player-moves.enum';
+import {mapElementsEnum} from '../../../shared/models/enums/map-elements.enum';
+import {GameSession} from '../../../shared/models/interfaces/gameSession';
+import {directionsEnum} from '../../../shared/models/enums/directionsEnum';
 
 export class PlayerUtils {
 
@@ -27,40 +27,40 @@ export class PlayerUtils {
 
   static turnWhenDirectionIsNorth(player: Player, playerMove: string): Player {
     if (playerMove === playerMovesEnum.left) {
-      player.direction = directionsEnum.WEST
+      player.direction = directionsEnum.WEST;
     }
     if (playerMove === playerMovesEnum.right) {
-      player.direction = directionsEnum.EAST
+      player.direction = directionsEnum.EAST;
     }
     return player;
   }
 
   static turnWhenDirectionIsSouth(player: Player, playerMove: string): Player {
     if (playerMove === playerMovesEnum.left) {
-      player.direction = directionsEnum.EAST
+      player.direction = directionsEnum.EAST;
     }
     if (playerMove === playerMovesEnum.right) {
-      player.direction = directionsEnum.WEST
+      player.direction = directionsEnum.WEST;
     }
     return player;
   }
 
   static turnWhenDirectionIsWest(player: Player, playerMove: string): Player {
     if (playerMove === playerMovesEnum.left) {
-      player.direction = directionsEnum.SOUTH
+      player.direction = directionsEnum.SOUTH;
     }
     if (playerMove === playerMovesEnum.right) {
-      player.direction = directionsEnum.NORTH
+      player.direction = directionsEnum.NORTH;
     }
     return player;
   }
 
   static turnWhenDirectionIsEast(player: Player, playerMove: string): Player {
     if (playerMove === playerMovesEnum.left) {
-      player.direction = directionsEnum.NORTH
+      player.direction = directionsEnum.NORTH;
     }
     if (playerMove === playerMovesEnum.right) {
-      player.direction = directionsEnum.SOUTH
+      player.direction = directionsEnum.SOUTH;
     }
     return player;
   }
@@ -70,16 +70,16 @@ export class PlayerUtils {
   */
   static setPlayerDirection(player: Player, playerMove: string): Player {
     switch (player.direction) {
-      case "N":
+      case 'N':
         player = this.turnWhenDirectionIsNorth(player, playerMove);
         break;
-      case "S":
+      case 'S':
         player = this.turnWhenDirectionIsSouth(player, playerMove);
         break;
-      case "W":
+      case 'W':
         player = this.turnWhenDirectionIsWest(player, playerMove);
         break;
-      case "E":
+      case 'E':
         player = this.turnWhenDirectionIsEast(player, playerMove);
         break;
     }
@@ -117,16 +117,16 @@ export class PlayerUtils {
     this.clearOldPlayerTile(player, gameMap);
     player.isPlayerOnTreasure = false;
     switch (player.direction) {
-      case "N": {
+      case 'N': {
         return this.moveNorth(player, gameMap);
       }
-      case "S": {
+      case 'S': {
         return this.moveSouth(player, gameMap);
       }
-      case "W": {
+      case 'W': {
         return this.moveWest(player, gameMap);
       }
-      case "E": {
+      case 'E': {
         return this.moveEast(player, gameMap);
       }
     }
@@ -155,7 +155,7 @@ export class PlayerUtils {
   }
 
   static playerStillHasMoves(player: Player): boolean {
-    return player.movesSequence.length != 0;
+    return player.movesSequence.length !== 0;
   }
 
   static getNextPlayerMove(player: Player): singleMove {
@@ -173,7 +173,7 @@ export class PlayerUtils {
     return tileCoordinates.x >= gameData.mapSize.nbHorizontalTiles
       || tileCoordinates.y >= gameData.mapSize.nbVerticalTiles
       || tileCoordinates.y < 0
-      || tileCoordinates.x < 0
+      || tileCoordinates.x < 0;
   }
 
   static isNextTileOccupiedByAnotherPlayer(tileCoordinates: TileCoordinates, gameMap: GameMap): boolean {
@@ -186,7 +186,7 @@ export class PlayerUtils {
   static isNextTileValid(player: Player, gameMap: GameMap, gameData: GameData): boolean {
     const tileCoordinates = this.getFuturePlayerPosition(player);
     if (this.isEndOfMap(tileCoordinates, gameData)) {
-      return false
+      return false;
     } else {
       return !this.isNextTileMountain(tileCoordinates, gameMap) && !this.isNextTileOccupiedByAnotherPlayer(tileCoordinates, gameMap);
     }
@@ -197,39 +197,32 @@ export class PlayerUtils {
   */
   static getTotalNumberOfMoves(gameData: GameData): number {
     let total = 0;
-    for (let player of gameData.players) {
+    for (const player of gameData.players) {
       total += player.movesSequence.length;
     }
-    console.log('getTotalNumberOfMoves', total);
     return total;
-  }
-
-  static updateGameData(player: Player, gameData: GameData): GameData {
-    // looks for the index of the player by name inside gameData
-    const playerIndex = gameData.players.findIndex(_player => _player.name === player.name);
-    gameData.players[playerIndex] = player;
-    return gameData;
   }
 
   /*
  * Checks if user is over a treasure
  */
+
   static lookForTreasure(player: Player, gameData: GameData): GameSession {
-    gameData.treasuresSpots.forEach((treasure, index) => {
-      if (player.positionX === treasure.positionX && player.positionY === treasure.positionY) {
-        player.isPlayerOnTreasure = true;
-        player.lastTreasureFound = treasure;
-        player.nbOfFoundTreasures += 1;
-        gameData.treasuresSpots[index].nbOfTreasures -= 1;
-        return {player, gameData}
-      }
-    });
+    const foundTreasureIndex = gameData.treasuresSpots.findIndex((treasure) =>
+      (player.positionX === treasure.positionX && player.positionY === treasure.positionY));
+    if (foundTreasureIndex === -1) {
+      return {player, gameData};
+    }
+    player.isPlayerOnTreasure = true;
+    player.nbOfFoundTreasures += 1;
+    player.lastTreasureFound = gameData.treasuresSpots[foundTreasureIndex];
+    gameData.treasuresSpots[foundTreasureIndex].nbOfTreasures -= 1;
     return {player, gameData};
+
   }
 
 
   static playTurn(player: Player, gameData: GameData, gameMap: GameMap): GameSession {
-    let gameSession: GameSession = {};
     // get the next player move from the player moveSequence
     const move = this.getNextPlayerMove(player);
     // checks if player is going to advance and that destination tile is valid
@@ -240,33 +233,28 @@ export class PlayerUtils {
       this.lookForTreasure(player, gameData);
       // removes the executed move form the player's moveSequence
       this.removeUsedMove(player);
-      // updates gameData with the updated player
-      this.updateGameData(player, gameData)
       // checks if the player is going to advance with an invalid destination
     } else if (move === playerMovesEnum.advance && !this.isNextTileValid(player, gameMap, gameData)) {
       this.removeUsedMove(player);
-      this.updateGameData(player, gameData)
     } else {
       // if  next move is a direction change then the new player direction is updated
       this.setPlayerDirection(player, move);
       this.removeUsedMove(player);
-      this.updateGameData(player, gameData)
     }
-    return {player, gameMap, gameData}
+    return {player, gameMap, gameData};
   }
 
-  static startTheChase(gameData: GameData, gameMap: GameMap): GameSession {
+  static startTheHunt(gameData: GameData, gameMap: GameMap): GameSession {
     // Loops as many times as there are turns in total
     const totalNumberOfMoves = this.getTotalNumberOfMoves(gameData);
     for (let i = 0; i <= totalNumberOfMoves; i++) {
-      console.log('i', i);
       // each player will play 1 turn
-      for (let player of gameData.players) {
+      for (const player of gameData.players) {
         if (this.playerStillHasMoves(player)) {
           this.playTurn(player, gameData, gameMap);
         }
       }
     }
-    return {gameData, gameMap}
+    return {gameData, gameMap};
   }
 }

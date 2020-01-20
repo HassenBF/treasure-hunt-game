@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {MapDataService} from "../../../../core/services/map-data/map-data.service";
-import {GameData} from "../../../../shared/models/interfaces/gameData";
-import {MapUtils} from "../../../lib/map-utils/map-utils";
-import {GameMap} from "../../../../shared/models/interfaces/game-map.interface";
-import {map} from "rxjs/operators";
-import {PlayerUtils} from "../../../lib/player-utils/player-utils";
+import {GameDataService} from '../../../../core/services/map-data/game-data.service';
+import {GameData} from '../../../../shared/models/interfaces/gameData';
+import {MapUtils} from '../../../lib/map-utils/map-utils';
+import {GameMap} from '../../../../shared/models/interfaces/game-map.interface';
+import {map} from 'rxjs/operators';
+import {PlayerUtils} from '../../../lib/player-utils/player-utils';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +17,7 @@ export class StartScreenComponent implements OnInit {
   gameData: GameData;
   gameMap: GameMap;
 
-  constructor(private mapDataService: MapDataService) {
+  constructor(private mapDataService: GameDataService) {
   }
 
   ngOnInit() {
@@ -37,25 +37,18 @@ export class StartScreenComponent implements OnInit {
       map(this.initPlayersData),
     ).subscribe((resp) => {
       this.gameData = resp;
-      console.log('resp',this.gameData);
       this.gameMap = MapUtils.generateGameMap(resp);
-      console.log(this.gameMap);
     });
   }
 
   runGame(): void {
-    this.mapDataService.getGameInitialisationData().pipe(
-      map(this.initPlayersData),
-    ).subscribe((resp) => {
-      this.gameData = resp;
-      console.log('resp',this.gameData);
-      this.gameMap= MapUtils.generateGameMap(resp);
-      console.log(this.gameMap);
-      const gameSession = PlayerUtils.startTheChase(this.gameData,this.gameMap);
-      this.gameMap = gameSession.gameMap;
-      this.gameData = gameSession.gameData;
-    });
+    const gameSession = PlayerUtils.startTheHunt(this.gameData, this.gameMap);
+    this.gameMap = gameSession.gameMap;
+    this.gameData = gameSession.gameData;
+  }
 
+  restGame(): void {
+    this.fetchMapInitialGameData();
   }
 
 }
