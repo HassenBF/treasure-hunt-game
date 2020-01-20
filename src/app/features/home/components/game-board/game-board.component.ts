@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {gameMap, mapElement} from "../../../shared/models/interfaces/game-map.interface";
+import {GameMap} from "../../../../shared/models/interfaces/game-map.interface";
 
 @Component({
   selector: 'app-game-board',
@@ -8,7 +8,7 @@ import {gameMap, mapElement} from "../../../shared/models/interfaces/game-map.in
 })
 export class GameBoardComponent implements OnInit {
 
-  @Input() gameMap: gameMap;
+  @Input() gameMap: GameMap;
 
   constructor() { }
 

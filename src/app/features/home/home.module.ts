@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home.component';
-import {GameDashboardComponent} from "./game-dashboard/game-dashboard.component";
-import { GameBoardComponent } from './game-board/game-board.component';
-import { MapTileComponent } from './game-board/map-tile/map-tile.component';
+import {StartScreenComponent} from './containers/start-screen/start-screen.component';
+import {GameResultsComponent} from "./components/game-results/game-results.component";
+import {GameBoardComponent} from './components/game-board/game-board.component';
+import {MapTileComponent} from './components/game-board/map-tile/map-tile.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: StartScreenComponent,
   },
 ];
 
@@ -19,14 +19,14 @@ const routes: Routes = [
     RouterModule.forChild(routes),
   ],
   declarations: [
-    HomeComponent,
-    GameDashboardComponent,
+    StartScreenComponent,
+    GameResultsComponent,
     GameBoardComponent,
     MapTileComponent,
   ],
   providers: [],
   exports: [
-    GameDashboardComponent
+    GameResultsComponent
   ]
 })
 export class HomeModule {

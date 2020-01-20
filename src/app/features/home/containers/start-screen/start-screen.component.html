@@ -2,5 +2,5 @@
 <button name="start" (click)="runGame()">start the chase</button>
 <ng-container *ngIf="gameData && gameMap">
   <app-game-board [gameMap]=gameMap></app-game-board>
-  <app-game-dashboard [gameData]="gameData"></app-game-dashboard>
+  <app-game-results [gameData]="gameData"></app-game-results>
 </ng-container>

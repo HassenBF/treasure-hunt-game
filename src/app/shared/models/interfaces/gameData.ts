@@ -1,29 +1,29 @@
 export type direction = 'S' | 'N' | 'E' | 'W'
 export type singleMove = 'A' |'G'| 'D'
 
-export interface tileCoordinates {
+export interface TileCoordinates {
   x:number;
   y:number;
 }
 
-export interface mapSize  {
+export interface MapSize  {
   nbHorizontalTiles: number,
   nbVerticalTiles: number
 }
 
 
-export interface mountain {
+export interface Mountain {
   positionX: number,
   positionY: number,
 }
 
-export interface treasures {
+export interface Treasures {
   positionX: number,
   positionY: number,
   nbOfTreasures: number,
 }
 
-export interface player {
+export interface Player {
   name: string,
   positionX: number,
   positionY: number,
@@ -32,13 +32,13 @@ export interface player {
   priority?: number;
   nbOfFoundTreasures?: number;
   isPlayerOnTreasure?:boolean
-  lastTreasureFound?: treasures;
+  lastTreasureFound?: Treasures;
 }
 
 
-export interface gameData {
-  mapSize :mapSize
-  mountains : Array<mountain>
-  treasuresSpots: Array<treasures>
-  players: Array<player>
+export interface GameData {
+  mapSize :MapSize
+  mountains : Array<Mountain>
+  treasuresSpots: Array<Treasures>
+  players: Array<Player>
 }

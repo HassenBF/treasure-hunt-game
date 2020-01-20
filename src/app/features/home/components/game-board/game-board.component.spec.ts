@@ -1,14 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GameBoardComponent } from './game-board.component';
+import {GameBoardComponent} from './game-board.component';
+import {Component, Input} from "@angular/core";
 
+@Component({
+  selector: 'app-map-tile',
+  template: '<span>Fake app-map-tile</span>',
+})
+class FakeMapTileComponent {
+  @Input() field :string;
+}
 describe('GameBoardComponent', () => {
   let component: GameBoardComponent;
   let fixture: ComponentFixture<GameBoardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameBoardComponent ]
+      declarations: [
+        GameBoardComponent,
+        FakeMapTileComponent,
+      ]
     })
     .compileComponents();
   }));
@@ -16,6 +27,7 @@ describe('GameBoardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GameBoardComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 

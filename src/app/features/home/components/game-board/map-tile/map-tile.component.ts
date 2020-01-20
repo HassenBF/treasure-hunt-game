@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {mapElement} from "../../../../shared/models/interfaces/game-map.interface";
 
 @Component({
   selector: 'app-map-tile',
@@ -8,7 +7,7 @@ import {mapElement} from "../../../../shared/models/interfaces/game-map.interfac
 })
 export class MapTileComponent implements OnInit {
 
-  @Input() field: mapElement;
+  @Input() field: string;
   constructor() { }
 
   ngOnInit() {

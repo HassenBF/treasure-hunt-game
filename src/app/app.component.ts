@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {gameData} from "./shared/models/interfaces/game.data";
+import {Component} from '@angular/core';
+import {GameData} from "./shared/models/interfaces/gameData";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import {gameData} from "./shared/models/interfaces/game.data";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  data : gameData = {
+  data : GameData = {
     "mapSize": {
       "nbHorizontalTiles": 3,
       "nbVerticalTiles": 4

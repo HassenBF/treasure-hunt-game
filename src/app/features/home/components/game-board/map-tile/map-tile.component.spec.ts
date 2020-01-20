@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MapTileComponent } from './map-tile.component';
+import {MapTileComponent} from './map-tile.component';
 
 describe('MapTileComponent', () => {
   let component: MapTileComponent;

@@ -27,11 +27,18 @@
   ],
   "players": [
     {
-    "name": "Lara",
-    "positionX": 2,
-    "positionY": 1,
-    "direction": "W",
-    "movesSequence": "AADADA"
+      "name": "Lara",
+      "positionX": 1,
+      "positionY": 3,
+      "direction": "S",
+      "movesSequence": "AADADA"
+    },
+    {
+      "name": "Eric",
+      "positionX": 2,
+      "positionY": 1,
+      "direction": "S",
+      "movesSequence": "AADADA"
     }
   ]
 }
